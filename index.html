@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<title>Quick Start - Leaflet</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="./style.css">
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+<script src='./jquery-3.3.1.min.js'></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js" integrity="sha512-/Nsx9X4HebavoBvEBuyp3I7od5tA0UzAxs+j83KgC8PU0kgB4XiK4Lfe4y4cgBtaRJQEIFCW+oC506aPT2L1zw==" crossorigin=""></script>
+	<script type="text/javascript" src="tanksgeo.json"></script>
+	<script src="/dist/countUp.js"></script>
+    <link rel="stylesheet" href="./dist/MarkerCluster.css">
+    <link rel="stylesheet" href="./dist/MarkerCluster.Default.css">
+    <script src="./dist/leaflet.markercluster.js"></script>
+</head>
+<body>
+
+
+<h1 id="project-heading">Rajasthan Water Problems Management System</h1>
+<div id="mapid" style="width: 600px; height: 400px;"></div>
+<h2>Current Overhead Water Tanks</h2>
+<h3 class="jumbo" id="myTargetElement">0</h3>
+<script>
+	// Map
+	var mymap = L.map('mapid').setView([26.925946, 75.774740], 7);
+    
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: '<a href=" "></a>' +
+			'<a href=""></a>' +
+			'<a href=""></a>',
+		id: 'mapbox.streets'
+	}).addTo(mymap);
+
+	// L.marker([26.925946, 75.774740]).addTo(mymap)
+	// 	.bindPopup("<b>Welcome to Rajasthan Water Management Service!</b><br />").openPopup();
+
+	// var popup = L.popup();
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent("You clicked the map at " + e.latlng.toString())
+			.openOn(mymap);
+	}
+
+    var markers = L.markerClusterGroup();
+		
+		// for (var i = 0; i < addressPoints.length; i++) {
+		// 	var a = addressPoints[i];
+		// 	var title = a[2];
+		// 	var marker = L.marker(new L.LatLng(a[0], a[1]), { title: title });
+		// 	marker.bindPopup(title);
+		// 	markers.addLayer(marker);
+		// }
+
+		
+		// Json data
+        $.getJSON( "./tanksgeo.json", function( data ) {
+		var items = [];
+		console.log(data);
+		$.each( data, function( i, val ) {
+					var title = i;
+					ltd = data[i].location.lat;
+					lng = data[i].location.lng;
+					var marker = L.marker(new L.LatLng(ltd, lng), { title: i });
+					marker.bindPopup(title);
+					markers.addLayer(marker);
+		});
+		mymap.addLayer(markers);
+
+		});
+
+		mymap.on('click', onMapClick);
+
+	// Counter
+	var easingFn = function (t, b, c, d) {
+	var ts = (t /= d) * t;
+	var tc = ts * t;
+	return b + c * (tc + -3 * ts + 3 * t);
+	}
+	var options = {
+	  useEasing: true, 
+	  easingFn: easingFn, 
+	  useGrouping: true, 
+	  separator: ',', 
+	  decimal: '.', 
+	};
+	var demo = new CountUp('myTargetElement', 0, 269, 0, 5, options);
+	if (!demo.error) {
+	  demo.start();
+	} else {
+	  console.error(demo.error);
+	}
+
+</script>
+
+
+
+</body>
+</html>
