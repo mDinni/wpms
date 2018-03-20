@@ -1,7 +1,7 @@
 # WPMS
 -----------------------------------------------------------------------------------------------------------------------------------------
                                                      
-                                                        Water Problem Management System
+                                                   Water Problem Management System
             
 ------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -18,4 +18,4 @@ Well you can contribute to this repository by many ways:
 ---
 
 # License
-This project is licensed under the MIT License - see the [LICENSE](../blob/master/LICENSE) file for details
+This project is licensed under the MIT License - see the [LICENSE](../master/LICENSE) file for details
