@@ -5,8 +5,8 @@
             
 ------------------------------------------------------------------------------------------------------------------------------------------
 
-![Image of user](../blob/master/user.png)
-![Image of govt](../blob/master/govt.png)
+![Image of user](../master/user.png)
+![Image of govt](../master/govt.png)
 
 # How to contribute
 Well you can contribute to this repository by many ways:
