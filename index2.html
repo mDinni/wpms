@@ -64,12 +64,22 @@
         $.getJSON( "./tanksgeo.json", function( data ) {
 		var items = [];
 		console.log(data);
+		var randomNumberBetween0and10 = Math.floor(Math.random() * 10+1);
+
+function randomWholeNum() {
+
+  // Only change code below this line.
+
+  return Math.random();
+}
+
 		$.each( data, function( i, val ) {
 					var title = data[i].tank;
 					ltd = data[i].location.lat;
 					lng = data[i].location.lng;
 					var marker = L.marker(new L.LatLng(ltd, lng), { title: title });
-					marker.bindPopup("<b>Tank name is "+title+"</b><form action='/complaintreg.php'><br><lable>Your complain</lable></br><input type='text'></input><br /><input type='submit' value='Submit'></form>");
+                    num = randomNumberBetween0and10;
+					marker.bindPopup("<b>Tank name: "+title+"</b><br>No. of complains in this region : "+num+"</br><br>No. of complains resolved : "+(num-1)+"</br><br>Complains left to be resolved : 1 </br>");
 					markers.addLayer(marker);
 					// L.marker([26.925946, 75.774740]).addTo(mymap)
 					// .bindPopup("<b>Welcome to Rajasthan Water Management Service!</b><br />")
